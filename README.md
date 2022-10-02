@@ -16,8 +16,8 @@
 - 資料來源皆為[104人力銀行](https://www.104.com.tw/jobs/main/)網站
 - 依照資料科學家、資料工程師、資料分析師分為三組條件：
 
-|          | 資料科學家 | 資料工程師               | 資料分析師 |
-| -------- | ---------- | -------------------------- | ---------- |
+|          | 資料科學家 | 資料工程師      | 資料分析師 |
+| -------- | ---------- | ------------ | ---------- |
 | 關鍵字    | 資料科學、機器學習、深度學習、人工智慧、演算法、影像辨識、Data science     | 資料工程、數據工程、ETL、資料庫、Data Engineering | 資料分析、數據分析、商業分析、Data Analyst      |
 | 地區     | 台北市       |          台北市            |  台北市          |
 | 職務類別  | 資訊系統管理類 |      資訊系統管理類        |   資訊系統管理類、金融研究員、統計精算人員、市場調查／市場分析         |
@@ -34,9 +34,9 @@
 依照前述Search Condition條件進行職缺搜尋，從開發人員工具 > Network > Fetch/XHR，檢視動態載入方法的項目 > Headers 查看請求的方式與參數，相關參數如下：
 
 ```
-Request URL：`https://www.104.com.tw/jobs/search/list`
-Request Methon：`GET`
-Headers Referer：`https://www.104.com.tw/jobs/search/`
+Request URL：https://www.104.com.tw/jobs/search/list
+Request Methon：GET
+Headers Referer：https://www.104.com.tw/jobs/search/
 
 
 Query String Parameters：
@@ -68,9 +68,9 @@ jobsource: 2018indexpoc
 
 由第一步獲取的職缺搜尋結果列表並未包含所有職缺的資訊，因此藉由職缺搜尋結果列表取得之各職缺的job_id作為參數傳入：
 ```
-Request URL：`https://www.104.com.tw/job/ajax/content/{job_id}`
-Request Methon：`GET`
-Headers Referer：`https://www.104.com.tw/job/{job_id}`
+Request URL：https://www.104.com.tw/job/ajax/content/{job_id}
+Request Methon：GET
+Headers Referer：https://www.104.com.tw/job/{job_id}
 ```
 **3. 資料結構**
 從網頁上回傳的資料為[JSON](https://www.json.org/json-en.html)格式，利用[pandas](https://pandas.pydata.org/)將所爬取的職缺資料轉為DataFrame並輸出至Excel。
@@ -83,10 +83,10 @@ Headers Referer：`https://www.104.com.tw/job/{job_id}`
 根據前述的Search Condition，雖然已經初步篩選出相關的職缺，不過部分職缺名稱仍與搜尋的職缺關鍵字不符，因此需要先將其排除(新增reject欄位，reject=N為最後要保留的職缺清單)。
 
 經由Search Condition以及Data Clearning的職缺數統整如下：
-|          | 資料科學家 | 資料工程師               | 資料分析師 |
-| -------- | ---------- | -------------------------- | ---------- |
+|          | 資料科學家 | 資料工程師      | 資料分析師 |
+| -------- | ---------- | ------------- | ---------- |
 |  Search Condition筆數  |  484  | 774 |  769    |
-|  Data Clearning後的筆數    | 249       |          505         |  497        |
+|  Data Clearning後的筆數    | 249       |    505         |  497        |
 
 完整代碼請參考：job_data_clean.py
 
@@ -102,6 +102,9 @@ Headers Referer：`https://www.104.com.tw/job/{job_id}`
 
 ## Data Analysis & Visualization
 最後將取得的職缺資料依照前面提到的問題，利用[matplotlib](https://matplotlib.org/)以及[seaborn](https://seaborn.pydata.org/#)套件進行視覺化呈現：（以下資料僅依照本項目的搜尋條件，於9月抓取的104職缺資料為樣本參考）
+
+完整代碼請參考：job_data_visualization.py
+
 1. 職缺分佈集中於哪些地區? (資料範圍為台北市12個行政區)
 
 在台北12個行政區中，可以看出最多公司位於內湖區，而其它的如信義區、大安區、松山區、中山區也有許多職缺，士林區、萬華區、文山區則較少。
